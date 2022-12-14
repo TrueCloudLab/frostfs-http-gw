@@ -3,7 +3,7 @@ package metrics
 import (
 	"net/http"
 
-	"github.com/nspcc-dev/neofs-sdk-go/pool"
+	"github.com/TrueCloudLab/frostfs-sdk-go/pool"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"go.uber.org/zap"

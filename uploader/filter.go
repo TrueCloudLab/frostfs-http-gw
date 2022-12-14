@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/nspcc-dev/neofs-api-go/v2/object"
-	"github.com/nspcc-dev/neofs-http-gw/utils"
+	"github.com/TrueCloudLab/frostfs-api-go/v2/object"
+	"github.com/TrueCloudLab/frostfs-http-gw/utils"
 	"github.com/valyala/fasthttp"
 	"go.uber.org/zap"
 )

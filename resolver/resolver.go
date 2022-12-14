@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/nspcc-dev/neofs-sdk-go/container"
-	cid "github.com/nspcc-dev/neofs-sdk-go/container/id"
-	"github.com/nspcc-dev/neofs-sdk-go/ns"
+	"github.com/TrueCloudLab/frostfs-sdk-go/container"
+	cid "github.com/TrueCloudLab/frostfs-sdk-go/container/id"
+	"github.com/TrueCloudLab/frostfs-sdk-go/ns"
 )
 
 const (

@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/nspcc-dev/neofs-sdk-go/pool"
+	"github.com/TrueCloudLab/frostfs-sdk-go/pool"
 )
 
 // NeoFSResolver represents virtual connection to the NeoFS network.

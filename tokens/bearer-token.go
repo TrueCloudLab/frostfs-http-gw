@@ -7,7 +7,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/nspcc-dev/neofs-sdk-go/bearer"
+	"github.com/TrueCloudLab/frostfs-sdk-go/bearer"
 	"github.com/valyala/fasthttp"
 )
 

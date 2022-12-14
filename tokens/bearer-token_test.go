@@ -4,9 +4,9 @@ import (
 	"encoding/base64"
 	"testing"
 
+	"github.com/TrueCloudLab/frostfs-sdk-go/bearer"
+	"github.com/TrueCloudLab/frostfs-sdk-go/user"
 	"github.com/nspcc-dev/neo-go/pkg/crypto/keys"
-	"github.com/nspcc-dev/neofs-sdk-go/bearer"
-	"github.com/nspcc-dev/neofs-sdk-go/user"
 	"github.com/stretchr/testify/require"
 	"github.com/valyala/fasthttp"
 )

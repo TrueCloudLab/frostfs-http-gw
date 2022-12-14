@@ -3,7 +3,7 @@ package uploader
 import (
 	"io"
 
-	"github.com/nspcc-dev/neofs-http-gw/uploader/multipart"
+	"github.com/TrueCloudLab/frostfs-http-gw/uploader/multipart"
 	"go.uber.org/zap"
 )
 
