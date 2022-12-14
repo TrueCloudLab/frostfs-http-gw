@@ -1,9 +1,9 @@
 package utils
 
 import (
-	"github.com/nspcc-dev/neofs-http-gw/resolver"
-	"github.com/nspcc-dev/neofs-sdk-go/pool"
-	"github.com/nspcc-dev/neofs-sdk-go/user"
+	"github.com/TrueCloudLab/frostfs-http-gw/resolver"
+	"github.com/TrueCloudLab/frostfs-sdk-go/pool"
+	"github.com/TrueCloudLab/frostfs-sdk-go/user"
 	"go.uber.org/zap"
 )
 

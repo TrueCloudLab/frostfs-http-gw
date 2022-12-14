@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/nspcc-dev/neofs-http-gw/resolver"
+	"github.com/TrueCloudLab/frostfs-http-gw/resolver"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 	"github.com/valyala/fasthttp"

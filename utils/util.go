@@ -3,8 +3,8 @@ package utils
 import (
 	"context"
 
-	"github.com/nspcc-dev/neofs-http-gw/resolver"
-	cid "github.com/nspcc-dev/neofs-sdk-go/container/id"
+	"github.com/TrueCloudLab/frostfs-http-gw/resolver"
+	cid "github.com/TrueCloudLab/frostfs-sdk-go/container/id"
 )
 
 // GetContainerID decode container id, if it's not a valid container id

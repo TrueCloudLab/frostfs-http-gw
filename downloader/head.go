@@ -7,12 +7,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/nspcc-dev/neofs-http-gw/response"
-	"github.com/nspcc-dev/neofs-http-gw/tokens"
-	"github.com/nspcc-dev/neofs-http-gw/utils"
-	"github.com/nspcc-dev/neofs-sdk-go/object"
-	oid "github.com/nspcc-dev/neofs-sdk-go/object/id"
-	"github.com/nspcc-dev/neofs-sdk-go/pool"
+	"github.com/TrueCloudLab/frostfs-http-gw/response"
+	"github.com/TrueCloudLab/frostfs-http-gw/tokens"
+	"github.com/TrueCloudLab/frostfs-http-gw/utils"
+	"github.com/TrueCloudLab/frostfs-sdk-go/object"
+	oid "github.com/TrueCloudLab/frostfs-sdk-go/object/id"
+	"github.com/TrueCloudLab/frostfs-sdk-go/pool"
 	"github.com/valyala/fasthttp"
 	"go.uber.org/zap"
 )
