@@ -1,11 +1,13 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: neofs-http-gw
-Upstream-Contact: tech@nspcc.ru
-Source: https://github.com/nspcc-dev/neofs-http-gw
+Upstream-Name: frostfs-http-gw
+Upstream-Contact: tech@frostfs.info
+Source: https://github.com/TrueCloudLab/frostfs-http-gw
 
 Files: *
-Copyright: 2018-2022 NeoSPCC (@nspcc-dev), contributors of neofs-http-gw project 
+Copyright: 2018-2022 NeoSPCC (@nspcc-dev), contributors of neofs-http-gw project
            (https://github.com/nspcc-dev/neofs-http-gw/blob/master/CREDITS.md)
+           2022 True Cloud Lab (@TrueCloudLab), contributors of frostfs-http-gw project
+           (https://github.com/TrueCloudLab/frostfs-http-gw/blob/master/CREDITS.md)
 
 
 License: GPL-3

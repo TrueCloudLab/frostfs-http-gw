@@ -1,0 +1,16 @@
+[Unit]
+Description=FrostFS HTTP Gateway
+Requires=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/frostfs-http-gw --config /etc/frostfs/http/config.yaml
+User=frostfs-http
+Group=frostfs-http
+WorkingDirectory=/srv/frostfs_cache
+Restart=always
+RestartSec=5
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

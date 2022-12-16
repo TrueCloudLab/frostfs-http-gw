@@ -1,5 +1,5 @@
 #!/bin/sh
-# postinst script for neofs-http-gw
+# postinst script for frostfs-http-gw
 #
 # see: dh_installdeb(1)
 
@@ -21,16 +21,16 @@ set -e
 case "$1" in
     configure)
         USERNAME=http
-        id -u neofs-$USERNAME >/dev/null 2>&1 || useradd -s /usr/sbin/nologin -d /srv/neofs_cache --system -M -U -c "NeoFS HTTP gateway" neofs-$USERNAME
-        if ! dpkg-statoverride --list /etc/neofs/$USERNAME >/dev/null; then
-            chown -f root:neofs-$USERNAME /etc/neofs/$USERNAME
-            chown -f root:neofs-$USERNAME /etc/neofs/$USERNAME/config.yaml || true
-            chmod -f 0750 /etc/neofs/$USERNAME
-            chmod -f 0640 /etc/neofs/$USERNAME/config.yaml || true
+        id -u frostfs-$USERNAME >/dev/null 2>&1 || useradd -s /usr/sbin/nologin -d /srv/frostfs_cache --system -M -U -c "FrostFS HTTP gateway" frostfs-$USERNAME
+        if ! dpkg-statoverride --list /etc/frostfs/$USERNAME >/dev/null; then
+            chown -f root:frostfs-$USERNAME /etc/frostfs/$USERNAME
+            chown -f root:frostfs-$USERNAME /etc/frostfs/$USERNAME/config.yaml || true
+            chmod -f 0750 /etc/frostfs/$USERNAME
+            chmod -f 0640 /etc/frostfs/$USERNAME/config.yaml || true
         fi
-        USERDIR=$(getent passwd "neofs-$USERNAME" | cut -d: -f6)
-        if ! dpkg-statoverride --list neofs-$USERDIR >/dev/null; then
-            chown -f neofs-$USERNAME: $USERDIR
+        USERDIR=$(getent passwd "frostfs-$USERNAME" | cut -d: -f6)
+        if ! dpkg-statoverride --list frostfs-$USERDIR >/dev/null; then
+            chown -f frostfs-$USERNAME: $USERDIR
         fi
     ;;
 
