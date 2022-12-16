@@ -38,7 +38,7 @@ version      Show current version
 ```
 
 Or you can also use a [Docker
-image](https://hub.docker.com/r/nspccdev/neofs-http-gw) provided for the released
+image](https://hub.docker.com/r/truecloudlab/frostfs-http-gw) provided for the released
 (and occasionally unreleased) versions of the gateway (`:latest` points to the
 latest stable release).
 

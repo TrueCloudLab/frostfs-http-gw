@@ -123,7 +123,7 @@ func settings() *viper.Viper {
 	flags.String(cmdListenAddress, "0.0.0.0:8080", "addresses to listen")
 	flags.String(cfgTLSCertFile, "", "TLS certificate path")
 	flags.String(cfgTLSKeyFile, "", "TLS key path")
-	peers := flags.StringArrayP(cfgPeers, "p", nil, "NeoFS nodes")
+	peers := flags.StringArrayP(cfgPeers, "p", nil, "FrostFS nodes")
 
 	resolveMethods := flags.StringSlice(cfgResolveOrder, []string{resolver.NNSResolver, resolver.DNSResolver}, "set container name resolve order")
 
@@ -197,7 +197,7 @@ func settings() *viper.Viper {
 
 	switch {
 	case help != nil && *help:
-		fmt.Printf("NeoFS HTTP Gateway %s\n", Version)
+		fmt.Printf("FrostFS HTTP Gateway %s\n", Version)
 		flags.PrintDefaults()
 
 		fmt.Println()
@@ -229,7 +229,7 @@ func settings() *viper.Viper {
 
 		os.Exit(0)
 	case version != nil && *version:
-		fmt.Printf("NeoFS HTTP Gateway\nVersion: %s\nGoVersion: %s\n", Version, runtime.Version())
+		fmt.Printf("FrostFS HTTP Gateway\nVersion: %s\nGoVersion: %s\n", Version, runtime.Version())
 		os.Exit(0)
 	}
 
