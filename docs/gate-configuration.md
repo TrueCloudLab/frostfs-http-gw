@@ -1,6 +1,6 @@
-# NeoFS HTTP Gateway configuration file
+# FrostFS HTTP Gateway configuration file
 
-This section contains detailed NeoFS HTTP Gateway configuration file description
+This section contains detailed FrostFS HTTP Gateway configuration file description
 including default config values and some tips to set up configurable values.
 
 There are some custom types used for brevity:
@@ -23,19 +23,19 @@ $ kill -s SIGHUP <app_pid>
 Example:
 
 ```shell
-$ ./bin/neofs-http-gw --config config.yaml  &> http.log &
+$ ./bin/frostfs-http-gw --config config.yaml  &> http.log &
 [1] 998346
 
 $ cat http.log
 # ...
-2022-10-03T09:37:25.826+0300    info    neofs-http-gw/app.go:332        starting application    {"app_name": "neofs-http-gw", "version": "v0.24.0"}
+2022-10-03T09:37:25.826+0300    info    frostfs-http-gw/app.go:332        starting application    {"app_name": "frostfs-http-gw", "version": "v0.24.0"}
 # ...
 
 $ kill -s SIGHUP 998346
 
 $ cat http.log
 # ...
-2022-10-03T09:38:16.205+0300    info    neofs-http-gw/app.go:470        SIGHUP config reload completed
+2022-10-03T09:38:16.205+0300    info    frostfs-http-gw/app.go:470        SIGHUP config reload completed
 ```
 
 # Structure

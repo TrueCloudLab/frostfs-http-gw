@@ -50,7 +50,7 @@ Route: `/upload/{cid}`
 
 #### POST
 
-Upload file as object with attributes to NeoFS.
+Upload file as object with attributes to FrostFS.
 
 ##### Request
 
