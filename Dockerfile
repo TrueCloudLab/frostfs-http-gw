@@ -18,6 +18,6 @@ FROM scratch
 WORKDIR /
 
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-COPY --from=builder /src/bin/neofs-http-gw /bin/neofs-http-gw
+COPY --from=builder /src/bin/frostfs-http-gw /bin/frostfs-http-gw
 
-ENTRYPOINT ["/bin/neofs-http-gw"]
+ENTRYPOINT ["/bin/frostfs-http-gw"]

@@ -111,7 +111,7 @@ func newApp(ctx context.Context, opt ...Option) App {
 	}
 
 	// -- setup FastHTTP server --
-	a.webServer.Name = "neofs-http-gw"
+	a.webServer.Name = "frost-http-gw"
 	a.webServer.ReadBufferSize = a.cfg.GetInt(cfgWebReadBufferSize)
 	a.webServer.WriteBufferSize = a.cfg.GetInt(cfgWebWriteBufferSize)
 	a.webServer.ReadTimeout = a.cfg.GetDuration(cfgWebReadTimeout)
@@ -327,7 +327,7 @@ func getKeyFromWallet(w *wallet.Wallet, addrStr string, password *string) (*ecds
 }
 
 func (a *app) Wait() {
-	a.log.Info("starting application", zap.String("app_name", "neofs-http-gw"), zap.String("version", Version))
+	a.log.Info("starting application", zap.String("app_name", "frostfs-http-gw"), zap.String("version", Version))
 
 	a.setHealthStatus()
 

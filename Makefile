@@ -6,13 +6,13 @@ GO_VERSION ?= 1.19
 LINT_VERSION ?= 1.49.0
 BUILD ?= $(shell date -u --iso=seconds)
 
-HUB_IMAGE ?= nspccdev/neofs-http-gw
+HUB_IMAGE ?= truecloudlab/frostfs-http-gw
 HUB_TAG ?= "$(shell echo ${VERSION} | sed 's/^v//')"
 
 # List of binaries to build. For now just one.
 BINDIR = bin
 DIRS = $(BINDIR)
-BINS = $(BINDIR)/neofs-http-gw
+BINS = $(BINDIR)/frostfs-http-gw
 
 .PHONY: all $(BINS) $(DIRS) dep docker/ test cover fmt image image-push dirty-image lint docker/lint version clean
 
@@ -74,7 +74,7 @@ fmt:
 
 # Build clean Docker image
 image:
-	@echo "⇒ Build NeoFS HTTP Gateway docker image "
+	@echo "⇒ Build FrostFS HTTP Gateway docker image "
 	@docker build \
 		--build-arg REPO=$(REPO) \
 		--build-arg VERSION=$(VERSION) \
@@ -89,7 +89,7 @@ image-push:
 
 # Build dirty Docker image
 dirty-image:
-	@echo "⇒ Build NeoFS HTTP Gateway dirty docker image "
+	@echo "⇒ Build FrostFS HTTP Gateway dirty docker image "
 	@docker build \
 		--build-arg REPO=$(REPO) \
 		--build-arg VERSION=$(VERSION) \
@@ -120,7 +120,7 @@ clean:
 
 # Package for Debian
 debpackage:
-	dch --package neofs-http-gw \
+	dch --package frostfs-http-gw \
 			--controlmaint \
 			--newversion $(PKG_VERSION) \
 			--distribution $(OS_RELEASE) \
