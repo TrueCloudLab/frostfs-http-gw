@@ -1,5 +1,5 @@
 #!/bin/sh
-# prerm script for neofs-http-gw
+# prerm script for frostfs-http-gw
 #
 # see: dh_installdeb(1)
 

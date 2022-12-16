@@ -1,15 +1,15 @@
-Source: neofs-http-gw
-Section: neofs
+Source: frostfs-http-gw
+Section: frostfs
 Priority: optional
-Maintainer: NeoSPCC <tech@nspcc.ru>
+Maintainer: TrueCloudLab <tech@frostfs.info>
 Build-Depends: debhelper-compat (= 13), dh-sysuser, git, devscripts
 Standards-Version: 4.5.1
-Homepage: https://fs.neo.org/
-Vcs-Git: https://github.com/nspcc-dev/neofs-http-gw.git
-Vcs-Browser: https://github.com/nspcc-dev/neofs-http-gw
+Homepage: https://frostfs.info/
+Vcs-Git: https://github.com/TrueCloudLab/frostfs-http-gw.git
+Vcs-Browser: https://github.com/TrueCloudLab/frostfs-http-gw
 
-Package: neofs-http-gw
+Package: frostfs-http-gw
 Architecture: any
 Depends: ${misc:Depends}
-Description: NeoFS HTTP Gateway bridges NeoFS internal protocol and HTTP standard.
+Description: FrostFS HTTP Gateway bridges FrostFS internal protocol and HTTP standard.
 

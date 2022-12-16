@@ -1,5 +1,5 @@
 #!/bin/sh
-# postrm script for neofs-http-gw
+# postrm script for frostfs-http-gw
 #
 # see: dh_installdeb(1)
 
@@ -21,7 +21,7 @@ set -e
 
 case "$1" in
     purge)
-        rm -rf /srv/neofs_cache
+        rm -rf /srv/frostfs_cache
     ;;
 
     remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)

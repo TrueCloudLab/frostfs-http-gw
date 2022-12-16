@@ -1,5 +1,5 @@
-neofs-http-gw (0.0.0) stable; urgency=medium
+frostfs-http-gw (0.0.0) stable; urgency=medium
 
   * Please see CHANGELOG.md
 
- -- NeoSPCC <tech@nspcc.ru>  Wed, 24 Aug 2022 18:29:49 +0300
+ -- TrueCloudLab <tech@frostfs.info>  Wed, 24 Aug 2022 18:29:49 +0300

@@ -2,7 +2,7 @@
 
 # Do not try to strip Go binaries and do not run test
 export DEB_BUILD_OPTIONS := nostrip nocheck
-SERVICE = neofs-http-gw
+SERVICE = frostfs-http-gw
 
 %:
 	dh $@
