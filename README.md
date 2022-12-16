@@ -1,30 +1,30 @@
 <p align="center">
-<img src="./.github/logo.svg" width="500px" alt="NeoFS">
+<img src="./.github/logo.svg" width="500px" alt="FrostFS">
 </p>
 <p align="center">
-  <a href="https://fs.neo.org">NeoFS</a> is a decentralized distributed object storage integrated with the <a href="https://neo.org">NEO Blockchain</a>.
+  <a href="https://frostfs.info">FrostFS</a> is a decentralized distributed object storage integrated with the <a href="https://neo.org">NEO Blockchain</a>.
 </p>
 
 ---
-[![Report](https://goreportcard.com/badge/github.com/nspcc-dev/neofs-http-gw)](https://goreportcard.com/report/github.com/nspcc-dev/neofs-http-gw)
-![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/nspcc-dev/neofs-http-gw?sort=semver)
-![License](https://img.shields.io/github/license/nspcc-dev/neofs-http-gw.svg?style=popout)
+[![Report](https://goreportcard.com/badge/github.com/TrueCloudLab/frostfs-http-gw)](https://goreportcard.com/report/github.com/TrueCloudLab/frostfs-http-gw)
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/TrueCloudLab/frostfs-http-gw?sort=semver)
+![License](https://img.shields.io/github/license/TrueCloudLab/frostfs-http-gw.svg?style=popout)
 
-# NeoFS HTTP Gateway
+# FrostFS HTTP Gateway
 
-NeoFS HTTP Gateway bridges NeoFS internal protocol and HTTP standard.
-- you can download one file per request from the NeoFS Network
-- you can upload one file per request into the NeoFS Network
+FrostFS HTTP Gateway bridges FrostFS internal protocol and HTTP standard.
+- you can download one file per request from the FrostFS Network
+- you can upload one file per request into the FrostFS Network
 
 See available routes in [specification](./docs/api.md).
 
 ## Installation
 
-```go install github.com/nspcc-dev/neofs-http-gw```
+```go install github.com/TrueCloudLab/frostfs-http-gw```
 
 Or you can call `make` to build it from the cloned repository (the binary will
-end up in `bin/neofs-http-gw`). To build neofs-http-gw binary in clean docker
-environment, call `make docker/bin/neofs-http-gw`.
+end up in `bin/frostfs-http-gw`). To build frostfs-http-gw binary in clean docker
+environment, call `make docker/bin/frostfs-http-gw`.
 
 Other notable make targets:
 
@@ -44,26 +44,26 @@ latest stable release).
 
 ## Execution
 
-HTTP gateway itself is not a NeoFS node, so to access NeoFS it uses node's
+HTTP gateway itself is not a FrostFS node, so to access FrostFS it uses node's
 gRPC interface and you need to provide some node that it will connect to. This
 can be done either via `-p` parameter or via `HTTP_GW_PEERS_<N>_ADDRESS` and
 `HTTP_GW_PEERS_<N>_WEIGHT` environment variables (the gate supports multiple
-NeoFS nodes with weighted load balancing).
+FrostFS nodes with weighted load balancing).
 
-If you launch HTTP gateway in bundle with [neofs-dev-env](https://github.com/nspcc-dev/neofs-dev-env), 
+If you launch HTTP gateway in bundle with [frostfs-dev-env](https://github.com/TrueCloudLab/frostfs-dev-env), 
 you can get the IP address of the node in the output of `make hosts` command 
 (with s0*.neofs.devenv name).
 
 These two commands are functionally equivalent, they run the gate with one
 backend node (and otherwise default settings):
 ```
-$ neofs-http-gw -p 192.168.130.72:8080
-$ HTTP_GW_PEERS_0_ADDRESS=192.168.130.72:8080 neofs-http-gw
+$ frostfs-http-gw -p 192.168.130.72:8080
+$ HTTP_GW_PEERS_0_ADDRESS=192.168.130.72:8080 frostfs-http-gw
 ```
 It's also possible to specify uri scheme (grpc or grpcs) when using `-p`:
 ```
-$ neofs-http-gw -p grpc://192.168.130.72:8080
-$ HTTP_GW_PEERS_0_ADDRESS=grpcs://192.168.130.72:8080 neofs-http-gw
+$ frostfs-http-gw -p grpc://192.168.130.72:8080
+$ HTTP_GW_PEERS_0_ADDRESS=grpcs://192.168.130.72:8080 frostfs-http-gw
 ```
 
 ## Configuration
@@ -74,11 +74,11 @@ environment variables (see [example](./config/config.env)), so they're not speci
 
 ### Nodes: weights and priorities
 
-You can specify multiple `-p` options to add more NeoFS nodes, this will make
+You can specify multiple `-p` options to add more FrostFS nodes, this will make
 gateway spread requests equally among them (using weight 1 and priority 1 for every node):
 
 ```
-$ neofs-http-gw -p 192.168.130.72:8080 -p 192.168.130.71:8080
+$ frostfs-http-gw -p 192.168.130.72:8080 -p 192.168.130.71:8080
 ```
 If you want some specific load distribution proportions, use weights and priorities:
 
@@ -86,7 +86,7 @@ If you want some specific load distribution proportions, use weights and priorit
 $ HTTP_GW_PEERS_0_ADDRESS=192.168.130.71:8080 HTTP_GW_PEERS_0_WEIGHT=1 HTTP_GW_PEERS_0_PRIORITY=1 \
   HTTP_GW_PEERS_1_ADDRESS=192.168.130.72:8080 HTTP_GW_PEERS_1_WEIGHT=9 HTTP_GW_PEERS_1_PRIORITY=2 \
   HTTP_GW_PEERS_2_ADDRESS=192.168.130.73:8080 HTTP_GW_PEERS_2_WEIGHT=1 HTTP_GW_PEERS_2_PRIORITY=2 \
-  neofs-http-gw
+  frostfs-http-gw
 ```
 This command will make gateway use 192.168.130.71 while it is healthy. Otherwise, it will make the gateway use 
 192.168.130.72 for 90% of requests and 192.168.130.73 for remaining 10%.
@@ -94,13 +94,13 @@ This command will make gateway use 192.168.130.71 while it is healthy. Otherwise
 ### Keys
 You can provide a wallet via `--wallet` or `-w` flag. You can also specify the account address using `--address` 
 (if no address provided default one will be used). If wallet is used, you need to set `HTTP_GW_WALLET_PASSPHRASE` variable to decrypt the wallet. 
-If no wallet provided, the gateway autogenerates a key pair it will use for NeoFS requests.
+If no wallet provided, the gateway autogenerates a key pair it will use for FrostFS requests.
 ```
-$ neofs-http-gw -p $NEOFS_NODE -w $WALLET_PATH --address $ACCOUNT_ADDRESS
+$ frostfs-http-gw -p $NEOFS_NODE -w $WALLET_PATH --address $ACCOUNT_ADDRESS
 ```
 Example:
 ```
-$ neofs-http-gw -p 192.168.130.72:8080 -w wallet.json --address NfgHwwTi3wHAS8aFAN243C5vGbkYDpqLHP
+$ frostfs-http-gw -p 192.168.130.72:8080 -w wallet.json --address NfgHwwTi3wHAS8aFAN243C5vGbkYDpqLHP
 ```
 
 ### Binding and TLS
@@ -116,7 +116,7 @@ external redirecting solution.
 Example to bind to `192.168.130.130:443` and serve TLS there:
 
 ```
-$ neofs-http-gw -p 192.168.130.72:8080 --listen_address 192.168.130.130:443 \
+$ frostfs-http-gw -p 192.168.130.72:8080 --listen_address 192.168.130.130:443 \
   --tls_key=key.pem --tls_certificate=cert.pem
 ```
 
@@ -134,12 +134,12 @@ request with data stream after timeout.
 
 `HTTP_GW_WEB_STREAM_REQUEST_BODY` environment variable can be used to disable
 request body streaming (effectively it'll make the gateway accept the file completely
-first and only then try sending it to NeoFS).
+first and only then try sending it to FrostFS).
 
 `HTTP_GW_WEB_MAX_REQUEST_BODY_SIZE` controls maximum request body size
 limiting uploads to files slightly lower than this limit.
 
-### NeoFS parameters
+### FrostFS parameters
 
 Gateway can automatically set timestamps for uploaded files based on local
 time source, use `HTTP_GW_UPLOAD_HEADER_USE_DEFAULT_TIMESTAMP` environment
@@ -177,7 +177,7 @@ HTTP_GW_LOGGER_LEVEL=debug
 Configuration file is optional and can be used instead of environment variables/other parameters. 
 It can be specified with `--config` parameter:
 ```
-$ neofs-http-gw --config your-config.yaml
+$ frostfs-http-gw --config your-config.yaml
 ```
 
 See [config](./config/config.yaml) and [defaults](./docs/gate-configuration.md) for example.
@@ -185,7 +185,7 @@ See [config](./config/config.yaml) and [defaults](./docs/gate-configuration.md) 
 ## HTTP API provided
 
 This gateway intentionally provides limited feature set and doesn't try to
-substitute (or completely wrap) regular gRPC NeoFS interface. You can download
+substitute (or completely wrap) regular gRPC FrostFS interface. You can download
 and upload objects with it, but deleting, searching, managing ACLs, creating
 containers and other activities are not supported and not planned to be
 supported.
@@ -211,7 +211,7 @@ resolve_order:
   - nns
 ```
 
-2. Make sure your container is registered in NNS contract. If you use [neofs-dev-env](https://github.com/nspcc-dev/neofs-dev-env) 
+2. Make sure your container is registered in NNS contract. If you use [frostfs-dev-env](https://github.com/TrueCloudLab/frostfs-dev-env) 
 you can check if your container (e.g. with `container-name` name) is registered in NNS:
 
 ```shell
@@ -238,9 +238,9 @@ $ curl http://localhost:8082/get_by_attribute/container-name/FileName/object-nam
 
 #### Create a container
 
-You can create a container via [neofs-cli](https://github.com/nspcc-dev/neofs-node/releases):
+You can create a container via [frostfs-cli](https://github.com/TrueCloudLab/frostfs-node/releases):
 ```
-$ neofs-cli -r $NEOFS_NODE -w $WALLET container create --policy $POLICY --basic-acl $ACL
+$ frostfs-cli -r $NEOFS_NODE -w $WALLET container create --policy $POLICY --basic-acl $ACL
 ```
 where `$WALLET` is a path to user wallet,   
 `$ACL` -- hex encoded basic ACL value or keywords 'private, 'public-read', 'public-read-write' and  
@@ -248,18 +248,18 @@ where `$WALLET` is a path to user wallet,
 
 For example:
 ```
-$ neofs-cli -r 192.168.130.72:8080 -w ./wallet.json container create --policy "REP 3" --basic-acl public --await
+$ frostfs-cli -r 192.168.130.72:8080 -w ./wallet.json container create --policy "REP 3" --basic-acl public --await
 ```
 
-If you have launched nodes via [neofs-dev-env](https://github.com/nspcc-dev/neofs-dev-env),
+If you have launched nodes via [frostfs-dev-env](https://github.com/TrueCloudLab/frostfs-dev-env),
 you can get the key value from `wallets/wallet.json` or write the path to 
 the file `wallets/wallet.key`.
 
 #### Prepare a file in a container
 
-To create a file via [neofs-cli](https://github.com/nspcc-dev/neofs-node/releases), run a command below:
+To create a file via [frostfs-cli](https://github.com/TrueCloudLab/frostfs-node/releases), run a command below:
 ```
-$ neofs-cli -r $NEOFS_NODE -k $KEY object put --file $FILENAME --cid $CID 
+$ frostfs-cli -r $NEOFS_NODE -k $KEY object put --file $FILENAME --cid $CID 
 ```
 where 
 `$KEY` -- the key, please read the information [above](#create-a-container), 
@@ -267,7 +267,7 @@ where
 
 For example:
 ```
-$ neofs-cli -r 192.168.130.72:8080 -w ./wallet.json object put --file cat.png --cid Dxhf4PNprrJHWWTG5RGLdfLkJiSQ3AQqit1MSnEPRkDZ --attributes img_type=cat,my_attr=cute
+$ frostfs-cli -r 192.168.130.72:8080 -w ./wallet.json object put --file cat.png --cid Dxhf4PNprrJHWWTG5RGLdfLkJiSQ3AQqit1MSnEPRkDZ --attributes img_type=cat,my_attr=cute
 ```
 
 
@@ -372,7 +372,7 @@ set of reply headers generated using the following rules:
  * `x-container-id` contains container ID
  * `x-object-id` contains object ID
  * `x-owner-id` contains owner address
- * all the other NeoFS attributes are converted to `X-Attribute-*` headers (but only
+ * all the other FrostFS attributes are converted to `X-Attribute-*` headers (but only
    if they can be safely represented in HTTP header), for example `FileName`
    attribute becomes `X-Attribute-FileName` header
 
@@ -452,25 +452,25 @@ operations for a request signed with your HTTP Gateway keys.
 If your don't want to manage gateway's secret keys and adjust eACL rules when
 gateway configuration changes (new gate, key rotation, etc) or you plan to use
 public services, there is an option to let your application backend (or you) to
-issue Bearer Tokens ans pass them from the client via gate down to NeoFS level
+issue Bearer Tokens ans pass them from the client via gate down to FrostFS level
 to grant access.
 
-NeoFS Bearer Token basically is a container owner-signed ACL data (refer to NeoFS
+FrostFS Bearer Token basically is a container owner-signed ACL data (refer to FrostFS
 documentation for more details). There are two options to pass them to gateway:
  * "Authorization" header with "Bearer" type and base64-encoded token in
    credentials field
  * "Bearer" cookie with base64-encoded token contents
 
 For example, you have a mobile application frontend with a backend part storing
-data in NeoFS. When a user authorizes in the mobile app, the backend issues a NeoFS
+data in FrostFS. When a user authorizes in the mobile app, the backend issues a FrostFS
 Bearer token and provides it to the frontend. Then, the mobile app may generate
-some data and upload it via any available NeoFS HTTP Gateway by adding
+some data and upload it via any available FrostFS HTTP Gateway by adding
 the corresponding header to the upload request. Accessing the ACL protected data
 works the same way.
 
 ##### Example
 In order to generate a bearer token, you need to know the container owner key and 
-the address of the sender who will do the request to NeoFS (in our case, it's a gateway wallet address).
+the address of the sender who will do the request to FrostFS (in our case, it's a gateway wallet address).
 
 Suppose we have:
 * **KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr** (container owner key)
@@ -521,7 +521,7 @@ Now, we can form a Bearer token (10000 is liftetime expiration in epoch) and sav
 
 Next, sign it with the container owner key:
 ```
-$ neofs-cli util sign bearer-token --from bearer.json --to signed.json -w ./wallet.json
+$ frostfs-cli util sign bearer-token --from bearer.json --to signed.json -w ./wallet.json
 ```
 Encoding to base64 to use via the header:
 ```
@@ -548,12 +548,12 @@ For the token to work correctly, you need to create a container with a basic ACL
 
 For example:
 ```
-$ neofs-cli -w ./wallet.json --basic-acl 0x0FFFCFFF -r 192.168.130.72:8080 container create --policy "REP 3"  --await
+$ frostfs-cli -w ./wallet.json --basic-acl 0x0FFFCFFF -r 192.168.130.72:8080 container create --policy "REP 3"  --await
 ```
 
 To deny access to a container without a token, set the eACL rules:
 ```
-$ neofs-cli -w ./wallet.json -r 192.168.130.72:8080 container set-eacl --table eacl.json --await --cid BJeErH9MWmf52VsR1mLWKkgF3pRm3FkubYxM7TZkBP4K
+$ frostfs-cli -w ./wallet.json -r 192.168.130.72:8080 container set-eacl --table eacl.json --await --cid BJeErH9MWmf52VsR1mLWKkgF3pRm3FkubYxM7TZkBP4K
 ```
 
 File **eacl.json**:
