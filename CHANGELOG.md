@@ -4,20 +4,22 @@ This document outlines major changes between releases.
 
 ## [Unreleased]
 
+## [0.26.0] - 2022-12-28
+
 ### Fixed
-- Download zip archive when `FilePath` is invalid (#222)
-- Only one peer must be healthy to init pool (#233)
+- ENV config example (#236)
 
 ### Added
 - Support the `Date` header on upload (#214)
+- Available routes specification (#216)
+- Mention caching strategy in docs (#215)
 - Add error response on attribute duplicates (#221)
-- Timeout for individual operations in streaming RPC (#234)
 - Multiple server listeners (#228)
 
 ### Removed
 - Deprecated linters (#239)
 
-### Updating from v0.25.0
+### Updating from v0.25.1
 Make sure your configuration is valid:
 
 If you configure application using environment variables change:
@@ -29,6 +31,16 @@ If you configure application using `.yaml` file change:
 * `listen_address` -> `server.0.address`
 * `tls.cert_file` -> `server.0.tls.cert_file` (and set `server.0.tls.enabled: true`)
 * `tls.key_file` -> `server.0.tls.key_file` (and set `server.0.tls.enabled: true`)
+
+## [0.25.1] - 2022-11-30
+
+### Fixed
+- Download zip archive when `FilePath` is invalid (#222)
+- Only one peer must be healthy to init pool (#233)
+
+### Added
+- Debian packaging (#223)
+- Timeout for individual operations in streaming RPC (#234)
 
 ## [0.25.0] - 2022-10-31
 
@@ -262,4 +274,6 @@ releases.
 [0.23.0]: https://github.com/nspcc-dev/neofs-http-gw/compare/v0.22.0...v0.23.0
 [0.24.0]: https://github.com/nspcc-dev/neofs-http-gw/compare/v0.23.0...v0.24.0
 [0.25.0]: https://github.com/nspcc-dev/neofs-http-gw/compare/v0.24.0...v0.25.0
-[Unreleased]: https://github.com/nspcc-dev/neofs-http-gw/compare/v0.25.0...master
+[0.25.1]: https://github.com/nspcc-dev/neofs-http-gw/compare/v0.25.0...v0.25.1
+[0.26.0]: https://github.com/nspcc-dev/neofs-http-gw/compare/v0.25.1...v0.26.0
+[Unreleased]: https://github.com/nspcc-dev/neofs-http-gw/compare/v0.26.0...master
