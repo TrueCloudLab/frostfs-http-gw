@@ -26,13 +26,13 @@ server:
       key_file: /path/to/key
 
 # Nodes configuration.
-# This configuration make the gateway use the first node (grpc://s01.neofs.devenv:8080)
-# while it's healthy. Otherwise, the gateway use the second node (grpc://s01.neofs.devenv:8080)
+# This configuration make the gateway use the first node (grpc://s01.frostfs.devenv:8080)
+# while it's healthy. Otherwise, the gateway use the second node (grpc://s01.frostfs.devenv:8080)
 # for 10% of requests and the third node for 90% of requests.
 peers:
   0:
     # Endpoint.
-    address: grpc://s01.neofs.devenv:8080
+    address: grpc://s01.frostfs.devenv:8080
 
     # Until nodes with the same priority level are healthy
     # nodes with other priority are not used.
@@ -42,11 +42,11 @@ peers:
     # Load distribution proportion for nodes with the same priority.
     weight: 1
   1:
-    address: grpc://s02.neofs.devenv:8080
+    address: grpc://s02.frostfs.devenv:8080
     priority: 2
     weight: 1
   2:
-    address: grpc://s03.neofs.devenv:8080
+    address: grpc://s03.frostfs.devenv:8080
     priority: 2
     weight: 9
 
@@ -80,7 +80,7 @@ web:
   max_request_body_size: 4194304
 
 # RPC endpoint to be able to use nns container resolving.
-rpc_endpoint: http://morph-chain.neofs.devenv:30333
+rpc_endpoint: http://morph-chain.frostfs.devenv:30333
 # The order in which resolvers are used to find an container id by name.
 resolve_order:
   - nns

@@ -44,7 +44,7 @@ func (r request) headObject(clnt *pool.Pool, objectAddress oid.Address) {
 
 	obj, err := clnt.HeadObject(r.appCtx, prm)
 	if err != nil {
-		r.handleNeoFSErr(err, start)
+		r.handleFrostFSErr(err, start)
 		return
 	}
 
@@ -94,7 +94,7 @@ func (r request) headObject(clnt *pool.Pool, objectAddress oid.Address) {
 			return &resObj, nil
 		})
 		if err != nil && err != io.EOF {
-			r.handleNeoFSErr(err, start)
+			r.handleFrostFSErr(err, start)
 			return
 		}
 	}

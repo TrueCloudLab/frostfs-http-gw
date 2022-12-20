@@ -10,7 +10,7 @@ temp
 test.sh
 testfile
 .blast.yml
-.neofs-cli.yml
+.frostfs-cli.yml
 
 .cache
 

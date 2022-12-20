@@ -111,7 +111,7 @@ func (r request) receiveFile(clnt *pool.Pool, objectAddress oid.Address) {
 
 	rObj, err := clnt.GetObject(r.appCtx, prm)
 	if err != nil {
-		r.handleNeoFSErr(err, start)
+		r.handleFrostFSErr(err, start)
 		return
 	}
 
@@ -224,7 +224,7 @@ func bearerToken(ctx context.Context) *bearer.Token {
 	return nil
 }
 
-func (r *request) handleNeoFSErr(err error, start time.Time) {
+func (r *request) handleFrostFSErr(err error, start time.Time) {
 	r.log.Error(
 		"could not receive object",
 		zap.Stringer("elapsed", time.Since(start)),
@@ -500,7 +500,7 @@ func (d *Downloader) zipObject(zipWriter *zip.Writer, addr oid.Address, btoken *
 
 	resGet, err := d.pool.GetObject(d.appCtx, prm)
 	if err != nil {
-		return fmt.Errorf("get NeoFS object: %v", err)
+		return fmt.Errorf("get FrostFS object: %v", err)
 	}
 
 	objWriter, err := d.addObjectToZip(zipWriter, &resGet.Header)
