@@ -123,9 +123,9 @@ func newApp(ctx context.Context, opt ...Option) App {
 	a.webServer.DisablePreParseMultipartForm = true
 	a.webServer.StreamRequestBody = a.cfg.GetBool(cfgWebStreamRequestBody)
 	// -- -- -- -- -- -- -- -- -- -- -- -- -- --
-	key, err = getNeoFSKey(a)
+	key, err = getFrostFSKey(a)
 	if err != nil {
-		a.log.Fatal("failed to get neofs credentials", zap.Error(err))
+		a.log.Fatal("failed to get frostfs credentials", zap.Error(err))
 	}
 
 	var owner user.ID
@@ -194,7 +194,7 @@ func (a *app) initResolver() {
 
 func (a *app) getResolverConfig() ([]string, *resolver.Config) {
 	resolveCfg := &resolver.Config{
-		NeoFS:      resolver.NewNeoFSResolver(a.pool),
+		FrostFS:    resolver.NewFrostFSResolver(a.pool),
 		RPCAddress: a.cfg.GetString(cfgRPCEndpoint),
 	}
 
@@ -266,7 +266,7 @@ func remove(list []string, element string) []string {
 	return list
 }
 
-func getNeoFSKey(a *app) (*ecdsa.PrivateKey, error) {
+func getFrostFSKey(a *app) (*ecdsa.PrivateKey, error) {
 	walletPath := a.cfg.GetString(cfgWalletPath)
 
 	if len(walletPath) == 0 {

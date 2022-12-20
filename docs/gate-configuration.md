@@ -57,7 +57,7 @@ $ cat http.log
 # General section
 
 ```yaml
-rpc_endpoint: http://morph-chain.neofs.devenv:30333
+rpc_endpoint: http://morph-chain.frostfs.devenv:30333
 resolve_order:
   - nns
   - dns
@@ -98,23 +98,23 @@ wallet:
 
 ```yaml
 # Nodes configuration
-# This configuration makes the gateway use the first node (node1.neofs:8080)
-# while it's healthy. Otherwise, gateway uses the second node (node2.neofs:8080)
-# for 10% of requests and the third node (node3.neofs:8080) for 90% of requests.
+# This configuration makes the gateway use the first node (node1.frostfs:8080)
+# while it's healthy. Otherwise, gateway uses the second node (node2.frostfs:8080)
+# for 10% of requests and the third node (node3.frostfs:8080) for 90% of requests.
 # Until nodes with the same priority level are healthy
 # nodes with other priority are not used.
 # The lower the value, the higher the priority.
 peers:
   0:
-    address: node1.neofs:8080
+    address: node1.frostfs:8080
     priority: 1
     weight: 1
   1:
-    address: node2.neofs:8080
+    address: node2.frostfs:8080
     priority: 2
     weight: 0.1
   2:
-    address: node3.neofs:8080
+    address: node3.frostfs:8080
     priority: 2
     weight: 0.9
 ```

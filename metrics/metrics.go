@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	namespace      = "neofs_http_gw"
+	namespace      = "frostfs_http_gw"
 	stateSubsystem = "state"
 	poolSubsystem  = "pool"
 

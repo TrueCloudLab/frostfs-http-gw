@@ -19,9 +19,9 @@ const (
 // ErrNoResolvers returns when trying to resolve container without any resolver.
 var ErrNoResolvers = errors.New("no resolvers")
 
-// NeoFS represents virtual connection to the NeoFS network.
-type NeoFS interface {
-	// SystemDNS reads system DNS network parameters of the NeoFS.
+// FrostFS represents virtual connection to the FrostFS network.
+type FrostFS interface {
+	// SystemDNS reads system DNS network parameters of the FrostFS.
 	//
 	// Returns exactly on non-zero value. Returns any error encountered
 	// which prevented the parameter to be read.
@@ -29,7 +29,7 @@ type NeoFS interface {
 }
 
 type Config struct {
-	NeoFS      NeoFS
+	FrostFS    FrostFS
 	RPCAddress string
 }
 
@@ -135,7 +135,7 @@ func (r *ContainerResolver) equals(resolverNames []string) bool {
 func newResolver(name string, cfg *Config) (*Resolver, error) {
 	switch name {
 	case DNSResolver:
-		return NewDNSResolver(cfg.NeoFS)
+		return NewDNSResolver(cfg.FrostFS)
 	case NNSResolver:
 		return NewNNSResolver(cfg.RPCAddress)
 	default:
@@ -143,17 +143,17 @@ func newResolver(name string, cfg *Config) (*Resolver, error) {
 	}
 }
 
-func NewDNSResolver(neoFS NeoFS) (*Resolver, error) {
-	if neoFS == nil {
+func NewDNSResolver(frostFS FrostFS) (*Resolver, error) {
+	if frostFS == nil {
 		return nil, fmt.Errorf("pool must not be nil for DNS resolver")
 	}
 
 	var dns ns.DNS
 
 	resolveFunc := func(ctx context.Context, name string) (*cid.ID, error) {
-		domain, err := neoFS.SystemDNS(ctx)
+		domain, err := frostFS.SystemDNS(ctx)
 		if err != nil {
-			return nil, fmt.Errorf("read system DNS parameter of the NeoFS: %w", err)
+			return nil, fmt.Errorf("read system DNS parameter of the FrostFS: %w", err)
 		}
 
 		domain = name + "." + domain

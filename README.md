@@ -52,7 +52,7 @@ FrostFS nodes with weighted load balancing).
 
 If you launch HTTP gateway in bundle with [frostfs-dev-env](https://github.com/TrueCloudLab/frostfs-dev-env), 
 you can get the IP address of the node in the output of `make hosts` command 
-(with s0*.neofs.devenv name).
+(with s0*.frostfs.devenv name).
 
 These two commands are functionally equivalent, they run the gate with one
 backend node (and otherwise default settings):
@@ -96,7 +96,7 @@ You can provide a wallet via `--wallet` or `-w` flag. You can also specify the a
 (if no address provided default one will be used). If wallet is used, you need to set `HTTP_GW_WALLET_PASSPHRASE` variable to decrypt the wallet. 
 If no wallet provided, the gateway autogenerates a key pair it will use for FrostFS requests.
 ```
-$ frostfs-http-gw -p $NEOFS_NODE -w $WALLET_PATH --address $ACCOUNT_ADDRESS
+$ frostfs-http-gw -p $FROSTFS_NODE -w $WALLET_PATH --address $ACCOUNT_ADDRESS
 ```
 Example:
 ```
@@ -206,7 +206,7 @@ Steps to start using name resolving:
 1. Enable NNS resolving in config (`rpc_endpoint` must be a valid neo rpc node, see [configs](./config) for other examples):
 
 ```yaml
-rpc_endpoint: http://morph-chain.neofs.devenv:30333
+rpc_endpoint: http://morph-chain.frostfs.devenv:30333
 resolve_order:
   - nns
 ```
@@ -216,13 +216,13 @@ you can check if your container (e.g. with `container-name` name) is registered 
 
 ```shell
 $ curl -s --data '{"id":1,"jsonrpc":"2.0","method":"getcontractstate","params":[1]}' \
-    http://morph-chain.neofs.devenv:30333 | jq -r '.result.hash'
+    http://morph-chain.frostfs.devenv:30333 | jq -r '.result.hash'
     
 0x8e6c3cd4b976b28e84a3788f6ea9e2676c15d667
 
 $ docker exec -it morph_chain neo-go \
     contract testinvokefunction \
-    -r http://morph-chain.neofs.devenv:30333 0x8e6c3cd4b976b28e84a3788f6ea9e2676c15d667 \
+    -r http://morph-chain.frostfs.devenv:30333 0x8e6c3cd4b976b28e84a3788f6ea9e2676c15d667 \
     resolve string:container-name.container int:16 \
     | jq -r '.stack[0].value | if type=="array" then .[0].value else . end' \
     | base64 -d && echo
@@ -240,7 +240,7 @@ $ curl http://localhost:8082/get_by_attribute/container-name/FileName/object-nam
 
 You can create a container via [frostfs-cli](https://github.com/TrueCloudLab/frostfs-node/releases):
 ```
-$ frostfs-cli -r $NEOFS_NODE -w $WALLET container create --policy $POLICY --basic-acl $ACL
+$ frostfs-cli -r $FROSTFS_NODE -w $WALLET container create --policy $POLICY --basic-acl $ACL
 ```
 where `$WALLET` is a path to user wallet,   
 `$ACL` -- hex encoded basic ACL value or keywords 'private, 'public-read', 'public-read-write' and  
@@ -259,7 +259,7 @@ the file `wallets/wallet.key`.
 
 To create a file via [frostfs-cli](https://github.com/TrueCloudLab/frostfs-node/releases), run a command below:
 ```
-$ frostfs-cli -r $NEOFS_NODE -k $KEY object put --file $FILENAME --cid $CID 
+$ frostfs-cli -r $FROSTFS_NODE -k $KEY object put --file $FILENAME --cid $CID 
 ```
 where 
 `$KEY` -- the key, please read the information [above](#create-a-container), 

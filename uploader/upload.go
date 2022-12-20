@@ -182,8 +182,8 @@ func (u *Uploader) Upload(c *fasthttp.RequestCtx) {
 	}
 
 	if idObj, err = u.pool.PutObject(u.appCtx, prm); err != nil {
-		log.Error("could not store file in neofs", zap.Error(err))
-		response.Error(c, "could not store file in neofs: "+err.Error(), fasthttp.StatusBadRequest)
+		log.Error("could not store file in frostfs", zap.Error(err))
+		response.Error(c, "could not store file in frostfs: "+err.Error(), fasthttp.StatusBadRequest)
 		return
 	}
 

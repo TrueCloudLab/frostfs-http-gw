@@ -13,7 +13,7 @@ import (
 	"go.uber.org/zap"
 )
 
-var neofsAttributeHeaderPrefixes = [...][]byte{[]byte("Neofs-"), []byte("NEOFS-"), []byte("neofs-")}
+var frostfsAttributeHeaderPrefixes = [...][]byte{[]byte("Neofs-"), []byte("NEOFS-"), []byte("neofs-")}
 
 func systemTranslator(key, prefix []byte) []byte {
 	// replace the specified prefix with `__NEOFS__`
@@ -46,7 +46,7 @@ func filterHeaders(l *zap.Logger, header *fasthttp.RequestHeader) (map[string]st
 		clearKey := bytes.TrimPrefix(key, prefix)
 
 		// checks that it's a system NeoFS header
-		for _, system := range neofsAttributeHeaderPrefixes {
+		for _, system := range frostfsAttributeHeaderPrefixes {
 			if bytes.HasPrefix(clearKey, system) {
 				clearKey = systemTranslator(clearKey, system)
 				break
