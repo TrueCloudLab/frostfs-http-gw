@@ -7,8 +7,6 @@ import (
 	"fmt"
 	"net"
 	"sync"
-
-	"go.uber.org/zap"
 )
 
 type (
@@ -57,11 +55,11 @@ func (s *server) UpdateCert(certFile, keyFile string) error {
 	return s.tlsProvider.UpdateCert(certFile, keyFile)
 }
 
-func newServer(ctx context.Context, serverInfo ServerInfo, logger *zap.Logger) *server {
+func newServer(ctx context.Context, serverInfo ServerInfo) (*server, error) {
 	var lic net.ListenConfig
 	ln, err := lic.Listen(ctx, "tcp", serverInfo.Address)
 	if err != nil {
-		logger.Fatal("could not prepare listener", zap.String("address", serverInfo.Address), zap.Error(err))
+		return nil, fmt.Errorf("could not prepare listener: %w", err)
 	}
 
 	tlsProvider := &certProvider{
@@ -70,7 +68,7 @@ func newServer(ctx context.Context, serverInfo ServerInfo, logger *zap.Logger) *
 
 	if serverInfo.TLS.Enabled {
 		if err = tlsProvider.UpdateCert(serverInfo.TLS.CertFile, serverInfo.TLS.KeyFile); err != nil {
-			logger.Fatal("failed to update cert", zap.Error(err))
+			return nil, fmt.Errorf("failed to update cert: %w", err)
 		}
 
 		ln = tls.NewListener(ln, &tls.Config{
@@ -82,7 +80,7 @@ func newServer(ctx context.Context, serverInfo ServerInfo, logger *zap.Logger) *
 		address:     serverInfo.Address,
 		listener:    ln,
 		tlsProvider: tlsProvider,
-	}
+	}, nil
 }
 
 func (p *certProvider) GetCertificate(*tls.ClientHelloInfo) (*tls.Certificate, error) {
