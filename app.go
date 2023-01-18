@@ -485,33 +485,57 @@ func (a *app) AppParams() *utils.AppParams {
 func (a *app) initServers(ctx context.Context) {
 	serversInfo := fetchServers(a.cfg)
 
-	a.servers = make([]Server, len(serversInfo))
-	for i, serverInfo := range serversInfo {
-		a.log.Info("added server",
+	a.servers = make([]Server, 0, len(serversInfo))
+	for _, serverInfo := range serversInfo {
+		fields := []zap.Field{
 			zap.String("address", serverInfo.Address), zap.Bool("tls enabled", serverInfo.TLS.Enabled),
-			zap.String("tls cert", serverInfo.TLS.CertFile), zap.String("tls key", serverInfo.TLS.KeyFile))
-		a.servers[i] = newServer(ctx, serverInfo, a.log)
+			zap.String("tls cert", serverInfo.TLS.CertFile), zap.String("tls key", serverInfo.TLS.KeyFile),
+		}
+		srv, err := newServer(ctx, serverInfo)
+		if err != nil {
+			a.log.Warn("failed to add server", append(fields, zap.Error(err))...)
+			continue
+		}
+
+		a.servers = append(a.servers, srv)
+		a.log.Info("add server", fields...)
+	}
+
+	if len(a.servers) == 0 {
+		a.log.Fatal("no healthy servers")
 	}
 }
 
 func (a *app) updateServers() error {
 	serversInfo := fetchServers(a.cfg)
 
-	if len(serversInfo) != len(a.servers) {
-		return fmt.Errorf("invalid servers configuration: length mismatch: old '%d', new '%d", len(a.servers), len(serversInfo))
-	}
-
-	for i, serverInfo := range serversInfo {
-		if serverInfo.Address != a.servers[i].Address() {
-			return fmt.Errorf("invalid servers configuration: addresses mismatch: old '%s', new '%s", a.servers[i].Address(), serverInfo.Address)
+	var found bool
+	for _, serverInfo := range serversInfo {
+		index := a.serverIndex(serverInfo.Address)
+		if index == -1 {
+			continue
 		}
 
 		if serverInfo.TLS.Enabled {
-			if err := a.servers[i].UpdateCert(serverInfo.TLS.CertFile, serverInfo.TLS.KeyFile); err != nil {
+			if err := a.servers[index].UpdateCert(serverInfo.TLS.CertFile, serverInfo.TLS.KeyFile); err != nil {
 				return fmt.Errorf("failed to update tls certs: %w", err)
 			}
 		}
+		found = true
+	}
+
+	if !found {
+		return fmt.Errorf("invalid servers configuration: no known server found")
 	}
 
 	return nil
+}
+
+func (a *app) serverIndex(address string) int {
+	for i := range a.servers {
+		if a.servers[i].Address() == address {
+			return i
+		}
+	}
+	return -1
 }
