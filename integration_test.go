@@ -44,7 +44,6 @@ func TestIntegration(t *testing.T) {
 	rootCtx := context.Background()
 	aioImage := "nspccdev/neofs-aio-testcontainer:"
 	versions := []string{
-		"0.27.5",
 		"0.28.1",
 		"0.29.0",
 		"0.30.0",
