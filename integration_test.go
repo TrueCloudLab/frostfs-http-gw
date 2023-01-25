@@ -44,10 +44,10 @@ func TestIntegration(t *testing.T) {
 	rootCtx := context.Background()
 	aioImage := "nspccdev/neofs-aio-testcontainer:"
 	versions := []string{
-		"0.28.1",
 		"0.29.0",
 		"0.30.0",
 		"0.32.0",
+		"0.34.0",
 		"latest",
 	}
 	key, err := keys.NewPrivateKeyFromHex("1dd37fba80fec4e6a6f13fd708d8dcb3b29def768017052f6c930fa1c5d90bbb")
