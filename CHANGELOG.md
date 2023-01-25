@@ -6,6 +6,8 @@ This document outlines major changes between releases.
 
 ### Changed
 - Update go version to 1.18 (TrueCloudLab#9)
+- Update neo-go to v0.101.0 (#8)
+- Update viper to v1.15.0 (#8)
 
 ## [0.26.0] - 2022-12-28
 
