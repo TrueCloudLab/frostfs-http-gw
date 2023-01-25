@@ -4,6 +4,9 @@ This document outlines major changes between releases.
 
 ## [Unreleased]
 
+### Changed
+- Update go version to 1.18 (TrueCloudLab#9)
+
 ## [0.26.0] - 2022-12-28
 
 ### Fixed
