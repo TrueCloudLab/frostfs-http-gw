@@ -93,8 +93,8 @@ github.com/TrueCloudLab/frostfs-contract v0.0.0-20221213081248-6c805c1b4e42 h1:P
 github.com/TrueCloudLab/frostfs-contract v0.0.0-20221213081248-6c805c1b4e42/go.mod h1:qmf648elr+FWBZH3hqND8KVrXMnqu/e0z48k+sX8C2s=
 github.com/TrueCloudLab/frostfs-crypto v0.5.0 h1:ZoLjixSkQv3j1EwZ1WJzMEJY2NR+9nO4Pd8WSyM/RRI=
 github.com/TrueCloudLab/frostfs-crypto v0.5.0/go.mod h1:775MUewpH8AWpXrimAG2NYWOXB6lpKOI5kqgu+eI5zs=
-github.com/TrueCloudLab/frostfs-sdk-go v0.0.0-20221230104050-dd88a5c5e0cc h1:X6PCmTlUqHLhM3PaRJkVEvu23fDPx0cZWHTK2RxfOZY=
-github.com/TrueCloudLab/frostfs-sdk-go v0.0.0-20221230104050-dd88a5c5e0cc/go.mod h1:J5Gv7HtN9wJ5vKMy+vOT9/D6ixPMNl2ureKNNq8dask=
+github.com/TrueCloudLab/frostfs-sdk-go v0.0.0-20230130120602-cf64ddfb143c h1:7TTjeRSWHOSmFEsblebGBN4aLeZEVVN9JixQvu2tD7Q=
+github.com/TrueCloudLab/frostfs-sdk-go v0.0.0-20230130120602-cf64ddfb143c/go.mod h1:J5Gv7HtN9wJ5vKMy+vOT9/D6ixPMNl2ureKNNq8dask=
 github.com/TrueCloudLab/hrw v1.1.0 h1:2U69PpUX1UtMWgh/RAg6D8mQW+/WsxbLNE+19EUhLhY=
 github.com/TrueCloudLab/hrw v1.1.0/go.mod h1:Pzi8Hy3qx12cew+ajVxgbtDVM4sRG9/gJnJLcL/yRyY=
 github.com/TrueCloudLab/rfc6979 v0.3.0 h1:0SYMAfQWh/TjnofqYQHy+s3rmQ5gi0fvOaDbqd60/Ic=

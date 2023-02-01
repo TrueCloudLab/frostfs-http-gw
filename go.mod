@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/TrueCloudLab/frostfs-api-go/v2 v2.0.0-20221212144048-1351b6656d68
-	github.com/TrueCloudLab/frostfs-sdk-go v0.0.0-20221230104050-dd88a5c5e0cc
+	github.com/TrueCloudLab/frostfs-sdk-go v0.0.0-20230130120602-cf64ddfb143c
 	github.com/fasthttp/router v1.4.1
 	github.com/nspcc-dev/neo-go v0.101.0
 	github.com/prometheus/client_golang v1.13.0
