@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"path"
 	"runtime"
 	"sort"
 	"strconv"
@@ -84,6 +85,7 @@ const (
 	cmdWallet        = "wallet"
 	cmdAddress       = "address"
 	cmdConfig        = "config"
+	cmdConfigDir     = "config-dir"
 	cmdListenAddress = "listen_address"
 )
 
@@ -114,7 +116,8 @@ func settings() *viper.Viper {
 
 	flags.StringP(cmdWallet, "w", "", `path to the wallet`)
 	flags.String(cmdAddress, "", `address of wallet account`)
-	flags.String(cmdConfig, "", "config path")
+	flags.StringArray(cmdConfig, nil, "config paths")
+	flags.String(cmdConfigDir, "", "config dir path")
 	flags.Duration(cfgConTimeout, defaultConnectTimeout, "gRPC connect timeout")
 	flags.Duration(cfgStreamTimeout, defaultStreamTimeout, "gRPC individual message timeout")
 	flags.Duration(cfgReqTimeout, defaultRequestTimeout, "gRPC request timeout")
@@ -233,10 +236,8 @@ func settings() *viper.Viper {
 		os.Exit(0)
 	}
 
-	if v.IsSet(cmdConfig) {
-		if err := readConfig(v); err != nil {
-			panic(err)
-		}
+	if err := readInConfig(v); err != nil {
+		panic(err)
 	}
 
 	if peers != nil && len(*peers) > 0 {
@@ -250,17 +251,72 @@ func settings() *viper.Viper {
 	return v
 }
 
-func readConfig(v *viper.Viper) error {
-	cfgFileName := v.GetString(cmdConfig)
-	cfgFile, err := os.Open(cfgFileName)
+func readInConfig(v *viper.Viper) error {
+	if v.IsSet(cmdConfig) {
+		if err := readConfig(v); err != nil {
+			return err
+		}
+	}
+
+	if v.IsSet(cmdConfigDir) {
+		if err := readConfigDir(v); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func readConfigDir(v *viper.Viper) error {
+	cfgSubConfigDir := v.GetString(cmdConfigDir)
+	entries, err := os.ReadDir(cfgSubConfigDir)
 	if err != nil {
 		return err
 	}
-	if err = v.ReadConfig(cfgFile); err != nil {
+
+	for _, entry := range entries {
+		if entry.IsDir() {
+			continue
+		}
+		ext := path.Ext(entry.Name())
+		if ext != ".yaml" && ext != ".yml" {
+			continue
+		}
+
+		if err = mergeConfig(v, path.Join(cfgSubConfigDir, entry.Name())); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func readConfig(v *viper.Viper) error {
+	for _, fileName := range v.GetStringSlice(cmdConfig) {
+		if err := mergeConfig(v, fileName); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func mergeConfig(v *viper.Viper, fileName string) error {
+	cfgFile, err := os.Open(fileName)
+	if err != nil {
 		return err
 	}
 
-	return cfgFile.Close()
+	defer func() {
+		if errClose := cfgFile.Close(); errClose != nil {
+			panic(errClose)
+		}
+	}()
+
+	if err = v.MergeConfig(cfgFile); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 // newLogger constructs a zap.Logger instance for current application.
