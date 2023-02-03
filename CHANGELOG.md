@@ -4,6 +4,9 @@ This document outlines major changes between releases.
 
 ## [Unreleased]
 
+### Added
+- Multiple configs support (TrueCloudLab#12)
+
 ### Changed
 - Update go version to 1.18 (TrueCloudLab#9)
 - Update neo-go to v0.101.0 (#8)
