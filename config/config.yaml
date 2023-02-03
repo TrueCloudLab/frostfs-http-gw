@@ -4,10 +4,10 @@ wallet:
   passphrase: pwd # Passphrase to decrypt wallet. If you're using a wallet without a password, place '' here.
 
 pprof:
-  enabled: true # Enable pprof.
+  enabled: false # Enable pprof.
   address: localhost:8083
 prometheus:
-  enabled: true # Enable metrics.
+  enabled: false # Enable metrics.
   address: localhost:8084
 
 logger:

@@ -182,6 +182,23 @@ $ frostfs-http-gw --config your-config.yaml
 
 See [config](./config/config.yaml) and [defaults](./docs/gate-configuration.md) for example.
 
+#### Multiple configs
+
+You can use several config files when running application. It allows you to split configuration into parts.
+For example, you can use separate yaml file for pprof and prometheus section in config (see [config examples](./config)).
+You can either provide several files with repeating `--config` flag or provide path to the dir that contains all configs using `--config-dir` flag.
+Also, you can combine these flags:
+
+```shell
+$ frostfs-http-gw --config ./config/config.yaml --config /your/partial/config.yaml --config-dir ./config/dir
+```
+
+**Note:** next file in `--config` flag overwrites values from the previous one.
+Files from `--config-dir` directory overwrite values from `--config` files.
+So the command above run `frostfs-http-gw` to listen on `0.0.0.0:8080` address (value from `./config/config.yaml`),
+applies parameters from `/your/partial/config.yaml`,
+enable pprof (value from `./config/dir/pprof.yaml`) and prometheus (value from `./config/dir/prometheus.yaml`).
+
 ## HTTP API provided
 
 This gateway intentionally provides limited feature set and doesn't try to
